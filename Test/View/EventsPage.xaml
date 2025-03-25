@@ -1,0 +1,115 @@
+﻿<Page
+    x:Class="Test.View.EventsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="IconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="10">
+
+        <ContentDialog x:Name="DeleteConfirmationDialog"
+                       Title="Delete Confirmation"
+                       Content="Are you sure you want to delete this item?"
+                       Visibility="Collapsed"
+                       PrimaryButtonText="Yes"
+                       SecondaryButtonText="No"
+                       PrimaryButtonClick="DeleteConfirmationDialog_PrimaryButtonClick"
+                       SecondaryButtonClick="DeleteConfirmationDialog_SecondaryButtonClick"/>
+
+        <ContentDialog x:Name="LoadingDialog"
+                       Title="Loading"
+                       Visibility="Visible"
+                       IsPrimaryButtonEnabled="False"
+                       IsSecondaryButtonEnabled="False">
+            <StackPanel>
+                <TextBlock Text="Please wait while events are being loaded..." Margin="0,0,0,10"/>
+                <ProgressBar IsIndeterminate="True" Width="300"/>
+            </StackPanel>
+        </ContentDialog>
+
+        <ScrollViewer>
+            <StackPanel Spacing="10">
+                <StackPanel Orientation="Horizontal"
+                          Spacing="16"
+                          VerticalAlignment="Center">
+                    <TextBlock Text="Events"
+                              FontSize="28"
+                              FontWeight="SemiBold"/>
+
+                    <Button Content="Add new"
+                            Click="AddNewItem_Click"
+                            CornerRadius="4"
+                            Background="{ThemeResource SystemAccentColor}"
+                            Foreground="White"
+                            Padding="16,8"/>
+                </StackPanel>
+
+                <ItemsControl ItemsSource="{Binding Events}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{ThemeResource SystemAltHighColor}"
+                                    CornerRadius="8"
+                                    Margin="0,0,0,16"
+                                    Padding="16">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0"
+                                               Spacing="8">
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold"/>
+
+                                        <TextBlock Text="{Binding Place}"
+                                                   TextWrapping="Wrap"
+                                                   Foreground="{ThemeResource SystemBaseMediumColor}"/>
+
+                                        <StackPanel Orientation="Horizontal"
+                                                   Spacing="12">
+                                            <TextBlock Text="{Binding Capacity}"
+                                                       Foreground="{ThemeResource SystemAccentColor}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Spacing="8"
+                                               Orientation="Horizontal">
+                                        <Button Style="{StaticResource IconButtonStyle}"
+                                                Content="✏️"
+                                                Click="EditItem_Click"
+                                                Tag="{Binding Id}"/>
+
+                                        <Button Style="{StaticResource IconButtonStyle}"
+                                                Content="🗑️"
+                                                Foreground="Red"
+                                                Tag="{Binding Id}"
+                                                Click="DeleteItem_Click"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
