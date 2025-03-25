@@ -38,6 +38,7 @@
                              PlaceholderText="Enter your password"
                              Password="{Binding Login.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Height="40"/>
+                <TextBlock x:Name="ValidationErrorTextBlock" Text="{Binding Login.Error, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" HorizontalAlignment="Right"/>
             </StackPanel>
 
             <!-- Remember Me Checkbox -->

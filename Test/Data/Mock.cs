@@ -73,7 +73,7 @@ namespace Test.Data
         public static bool TryToAccess(User user)
         {
             string userName = "admin";
-            string pass = "admin";
+            string pass = "Admin12";
 
             return user.Login == userName && user.Password == pass;
         }

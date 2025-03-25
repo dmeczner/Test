@@ -1,4 +1,5 @@
-﻿using Test.ViewModel;
+﻿using Test.Common;
+using Test.ViewModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -27,10 +28,13 @@ namespace Test.View
 
         private void LoginButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Navigation back logic
-            if (Frame.CanGoBack)
+            if (LoginHelper.IsUserLoggedIn)
             {
-                Frame.GoBack();
+                // Navigation back logic
+                if (Frame.CanGoBack)
+                {
+                    Frame.GoBack();
+                } 
             }
         }
     }
